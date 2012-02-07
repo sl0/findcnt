@@ -56,11 +56,11 @@
    Dateiname\Muster;eins;zwei;drei;der;die;das;class;for;def;Summe
    README.txt;2;2;2;2;2;2;2;6;2;22
    findcnt.py;0;0;0;0;0;0;3;20;16;39
-   Makefile;0;0;0;0;0;0;0;0;0;0
+   Makefile;0;0;0;0;0;0;0;2;0;2
 
 # Finally test sum_line
    >>> my_csv.sum_line()
-   Summen;2;2;2;2;2;2;5;26;18;61
+   Summen;2;2;2;2;2;2;5;28;18;63
 
 # now only main() is untested, thats a simple user duty
 # If you like it, please send me an email to
