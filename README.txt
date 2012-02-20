@@ -7,25 +7,34 @@
 # findcnt.py version 0.9                                               #
 #                                                                      #
 # Options:                                                             #
-#   -h, --help        show this help message and exit                  #
-#   -s PATTERN        single pattern, may be regex, OR:                #
-#   -l PATTERN_FILE   file containing patterns, one per line           #
-#   -f SOURCES_FILE   use this file only OR:                           #
-#   -d PATH_TO_FILES  directory, searched for plain files (recursive)  #
-#   -t SOURCES_TYPE   resrict filenames to file-type, f.e.: *tex       #
-#                                                                      #
+#   -h, --help       show this help message and exit                   #
+#   -s PATTERN       single pattern, may be regex, OR:                 #
+#   -l PATTERN_FILE  file containing patterns, one per line            #
+#   -d SOURCES_FILE  single file OR: search recursive in this directory#
+#   -t SOURCES_TYPE  resrict filenames to file-type, f.e.: 'php$'      #
 #                                                                      #
 ########################################################################
 #                                                                      #
 # License: GNU General Public License version 3 or newer               #
-# Date:    2012-02-07                                                  #
+# Date:    2012-02-17                                                  #
 # Author:  sl0.self@googlemail.com                                     #
 #                                                                      #
 ########################################################################
-# This is file README.txt for my patternmatching script.
+# This is file README.txt for patternmatching script.
 # Its main purpose is to provide inline tests for the program.
-# The tests rely on intact content of files test1.dat and test2.dat
-# the first test shows correctness of reading patterns into 
+# All the tests rely on intact content of file test1.dat
+# test1.dat contains the lines in between the minus-signs:
+#---------------------------
+# class
+# print
+# for
+# def
+# if
+# try:
+#---------------------------
+# To create a test1.dat, remoe the leading '# ' of the lines above
+#
+# The first test shows correctness of reading patterns into 
 # the findcnt Object:
 
    >>> #coding=utf-8
@@ -33,35 +42,39 @@
    >>> from findcnt import findcnt, Patterns
    >>> p = Patterns("test1.dat")
    >>> print p.data.values()
-   ['eins', 'zwei', 'drei', 'der', 'die', 'das', 'class', 'for', 'def']
-
+   ['class', 'print', 'for', 'def', 'if', 'try:']
 
 # Test findcnt Object the same way
 
-   >>> s = findcnt("test2.dat")
+   >>> s = findcnt("./","py$")
    >>> print s.data
-   ['README.txt', 'findcnt.py', 'Makefile']
+   ['./findcnt.py']
 
 # third Test, plain printout, remove ugly list symbols
 
    >>> for pp in s:
    ...     print pp,
-   README.txt findcnt.py Makefile
+   ./findcnt.py
 
 # Now test MyCounters Object with data already read above
 
    >>> from findcnt import MyCounters
    >>> my_csv = MyCounters(p, s)
    >>> my_csv.count_patterns()
-   Dateiname\Muster;eins;zwei;drei;der;die;das;class;for;def;Summe
-   README.txt;2;2;2;2;2;2;2;6;2;22
-   findcnt.py;0;0;0;0;0;0;3;20;16;39
-   Makefile;0;0;0;0;0;0;0;2;0;2
+   Dateiname\Muster;class;print;for;def;if;try:;Summe
+   ./findcnt.py;3;16;19;15;13;8;74
 
+#
 # Finally test sum_line
    >>> my_csv.sum_line()
-   Summen;2;2;2;2;2;2;5;28;18;63
+   Summen;3;16;19;15;13;8;74
 
+
+
+#
+# these tests simulate the following commandline call
+# ./findcnt.py -l test1.dat -d ./ -t 'py$'
+#
 # now only main() is untested, thats a simple user duty
 # If you like it, please send me an email to
 #                     sl0.self __at_ googlemail.com
