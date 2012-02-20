@@ -1,9 +1,6 @@
-eins
-zwei
-drei
-der
-die 
-das
 class
+print
 for
 def
+if
+try:
