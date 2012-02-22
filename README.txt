@@ -64,6 +64,7 @@
    Dateiname\Muster;class;print;for;def;if;try:;Summe
    ./findcnt.py;3;16;19;15;13;8;74
 
+
 #
 # Finally test sum_line
    >>> my_csv.sum_line()

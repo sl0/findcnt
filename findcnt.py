@@ -34,11 +34,10 @@ import os
 
 def count_one_pattern_one_line(muster, zeile):
     """ein Muster in einer Zeile Text finden"""
-    retval = 0
-    mat = re.search(muster, zeile)
-    if mat:
-        retval = 1
-    return retval
+    if re.search(muster, zeile) == 0:
+        return 0
+    else:
+        return len(re.findall(muster, zeile))
 
 
 def count_one_pattern_one_file(muster, datei):
